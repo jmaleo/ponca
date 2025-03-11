@@ -50,8 +50,20 @@ protected:
     /*!< \brief maximum number of iteration  ( default = \f$ 10 \f$ ) */
     unsigned int m_maxIteration;
 
-    /*!< \brief neighbors are accumulated in a vector */
-    std::vector<DataPoint> m_neighbors;
+    // To optimise
+    unsigned int iteration{ 0 };
+    Scalar convergence = Scalar(1);
+    Scalar f = Scalar(0.);
+    VectorType gradF = VectorType::Zero();
+    VectorType prevGrad = VectorType::Zero();
+    Scalar alpha = Scalar(1.);
+
+    // Temporary variables
+    VectorType sumGW;
+    Scalar sumW;
+    Scalar sumF;
+    VectorType sumGF;
+    VectorType sumN;
 
 public:
     PONCA_MULTIARCH inline RimlsPlaneFitImpl() : Base() {}
