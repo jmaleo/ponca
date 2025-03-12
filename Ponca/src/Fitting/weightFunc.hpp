@@ -92,20 +92,22 @@ DistWeightFunc<DataPoint, WeightKernel>::scaleSpaced2w(   const VectorType& _q,
 
 template <class DataPoint, class WeightKernel>
 typename DistWeightFunc<DataPoint, WeightKernel>::Scalar
-DistWeightFunc<DataPoint, WeightKernel>::w(const VectorType& _q, const VectorType& _center) const
+DistWeightFunc<DataPoint, WeightKernel>::voxelW(const VectorType& _q, const VectorType& _center ) const
 {
-    VectorType q = _q - _center;
+    VectorType q = convertToLocalBasis(_q);
+    // VectorType q = _q - _center;
     Scalar d  = q.norm();
     return (d <= m_t) ? m_wk.f(d/m_t) : Scalar(0.);
 }
 
 template <class DataPoint, class WeightKernel>
 typename DistWeightFunc<DataPoint, WeightKernel>::ScalarArray
-DistWeightFunc<DataPoint, WeightKernel>::spacedw(const VectorType& _q, const VectorType& _center) const
+DistWeightFunc<DataPoint, WeightKernel>::voxelSpacedw(const VectorType& _q, const VectorType& _center ) const
 {
     static_assert(WeightKernel::isDValid, "First order derivatives are required");
     VectorType result = VectorType::Zero();
-    VectorType q = _q - _center;
+    VectorType q = convertToLocalBasis(_q);
+    // VectorType q = _q - _center;
     Scalar d = q.norm();
     if (d <= m_t && d != Scalar(0.)) result = (q / (d * m_t)) * m_wk.df(d/m_t);
     ScalarArray res = ScalarArray::Zero();
@@ -115,11 +117,12 @@ DistWeightFunc<DataPoint, WeightKernel>::spacedw(const VectorType& _q, const Vec
 
 template <class DataPoint, class WeightKernel>
 typename DistWeightFunc<DataPoint, WeightKernel>::MatrixType
-DistWeightFunc<DataPoint, WeightKernel>::spaced2w(const VectorType& _q, const VectorType& _center) const
+DistWeightFunc<DataPoint, WeightKernel>::voxelSpaced2w(const VectorType& _q, const VectorType& _center ) const
 {
     static_assert(WeightKernel::isDDValid, "Second order derivatives are required");
     MatrixType result = MatrixType::Zero();
-    VectorType q = _q - _center;
+    VectorType q = convertToLocalBasis(_q);
+    // VectorType q = _q - _center;
     Scalar d = q.norm();
     if (d <= m_t && d != Scalar(0.))
     {

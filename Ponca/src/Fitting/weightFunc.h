@@ -184,14 +184,14 @@ public:
     PONCA_MULTIARCH inline const VectorType & evalPos() const { return m_p; }
 
 
-    PONCA_MULTIARCH inline Scalar w(const VectorType& _q,
-        const VectorType& _center) const;
+    PONCA_MULTIARCH inline Scalar voxelW(const VectorType& _q,
+        const VectorType& _center = VectorType::Zero()) const;
 
-    PONCA_MULTIARCH inline ScalarArray spacedw(const VectorType& _q,
-        const VectorType& _center) const;
+    PONCA_MULTIARCH inline ScalarArray voxelSpacedw(const VectorType& _q,
+        const VectorType& _center = VectorType::Zero()) const;
 
-    PONCA_MULTIARCH inline MatrixType spaced2w(const VectorType& _q,
-        const VectorType& _center) const;
+    PONCA_MULTIARCH inline MatrixType voxelSpaced2w(const VectorType& _q,
+        const VectorType& _center = VectorType::Zero()) const;
 protected:
     Scalar       m_t;  /*!< \brief Evaluation scale */
     WeightKernel m_wk; /*!< \brief 1D function applied to weight queries */
