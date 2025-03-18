@@ -291,4 +291,36 @@ public:
     static constexpr bool isDDValid = true;
 };//class CompactExpWeightKernel
 
+template <typename _Scalar>
+class RationalWeightKernel
+{
+public:
+    /*! \brief Scalar type defined outside the class */
+    typedef _Scalar Scalar;
+
+    PONCA_MULTIARCH void setEpsilon(const Scalar& _epsilon) { m_epsilon = _epsilon; }
+
+    PONCA_MULTIARCH void setK(const Scalar& _k) { m_k = _k; }
+
+    // Functor
+    //! \brief Return the constant value
+    PONCA_MULTIARCH inline Scalar f  (const Scalar& _x) const {
+        return std::pow( _x * _x + m_epsilon, -m_k * Scalar(0.5) );
+    }
+    //! \brief Return \f$ 0 \f$
+    PONCA_MULTIARCH inline Scalar df (const Scalar&) const { return Scalar(0.); }
+    //! \brief Return \f$ 0 \f$
+    PONCA_MULTIARCH inline Scalar ddf(const Scalar&) const { return Scalar(0.); }
+
+    //! \brief #df is defined and valid on the definition interval
+    static constexpr bool isDValid = true;
+    //! \brief #ddf is defined and valid on the definition interval
+    static constexpr bool isDDValid = true;
+
+private:
+    Scalar m_epsilon = 0.01;
+    Scalar m_k = 10.;
+
+};// class RationalWeightKernel
+
 }// namespace Ponca
