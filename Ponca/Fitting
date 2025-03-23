@@ -53,6 +53,7 @@
 #include "src/Fitting/sphereFit.h"
 #include "src/Fitting/orientedSphereFit.h"
 #include "src/Fitting/rimlsPlaneFit.h"
+#include "src/Fitting/rimlsApssFit.h"
 
 #include "src/Fitting/pss/PointSetSurfaces.h"
 

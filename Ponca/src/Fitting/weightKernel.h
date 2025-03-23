@@ -318,7 +318,7 @@ public:
     static constexpr bool isDDValid = true;
 
 private:
-    Scalar m_epsilon = 0.; // Interpolation
+    Scalar m_epsilon = 0.;
     Scalar m_k = 3.;
 
 };// class RationalWeightKernel

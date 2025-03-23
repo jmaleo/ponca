@@ -48,9 +48,19 @@ protected:
                 Base::PROVIDES_LOCAL_FRAME
         };
 
+    Scalar m_surfaceVar = 0; /*!< \brief Surface variation measure */
+
 public:
     PONCA_EXPLICIT_CAST_OPERATORS(CovariancePlaneFitImpl,covariancePlaneFit)
     PONCA_FITTING_DECLARE_FINALIZE
+
+    PONCA_MULTIARCH inline Scalar kMean() const { return m_surfaceVar; }
+    PONCA_MULTIARCH inline Scalar kmin() const { return 0; }
+    PONCA_MULTIARCH inline Scalar kmax() const { return 0; }
+    PONCA_MULTIARCH inline Scalar GaussianCurvature() const { return 0; }
+    PONCA_MULTIARCH inline VectorType kminDirection() const { return VectorType::Zero(); }
+    PONCA_MULTIARCH inline VectorType kmaxDirection() const { return VectorType::Zero(); }
+
 
 }; //class CovariancePlaneFitImpl
 
