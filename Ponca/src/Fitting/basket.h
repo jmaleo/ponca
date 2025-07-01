@@ -177,6 +177,19 @@ namespace internal
         }
         return false;
     }
+
+    /// \copydoc Basket::addNeighbor
+    PONCA_MULTIARCH inline bool addNeighbor(const DataPoint &_nei, const Scalar& s) {
+        // compute weight
+        auto wres = Base::m_w.w(_nei.pos(), _nei);
+        typename Base::ScalarArray dw;
+
+        if (wres.first > Scalar(0.)) {
+            Base::addLocalNeighbor(s * wres.first, wres.second, _nei, dw);
+            return true;
+        }
+        return false;
+    }
 };
 
 /*!
@@ -235,6 +248,18 @@ namespace internal
 
             if (wres.first > Scalar(0.)) {
                 Base::addLocalNeighbor(wres.first, wres.second, _nei);
+                return true;
+            }
+            return false;
+        }
+
+        /// \copydoc Basket::addNeighbor
+        PONCA_MULTIARCH inline bool addNeighbor(const DataPoint &_nei, const Scalar& s) {
+            // compute weight
+            auto wres = Base::m_w.w(_nei.pos(), _nei);
+
+            if (wres.first > Scalar(0.)) {
+                Base::addLocalNeighbor(wres.first * s, wres.second, _nei);
                 return true;
             }
             return false;
