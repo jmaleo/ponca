@@ -133,5 +133,5 @@ DistWeightFunc<DataPoint, WeightKernel>::voxelSpaced2w(const VectorType& _q, con
     }
     MatrixType res = MatrixType::Zero();
     res.template bottomRightCorner<DataPoint::Dim,DataPoint::Dim>() = result;
-    return result;
+    return res;
 }
