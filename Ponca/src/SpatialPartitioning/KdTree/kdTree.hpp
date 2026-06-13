@@ -37,7 +37,7 @@ inline void KdTreeBase<Traits>::buildWithSampling(PointUserContainer&& points,
     c(std::forward<PointUserContainer>(points), m_points);
 
     m_nodes = NodeContainer();
-    m_nodes.reserve(4 * point_count() / m_min_cell_size);
+    m_nodes.reserve(static_cast<std::size_t>(4) * point_count() / m_min_cell_size);
     m_nodes.emplace_back();
 
     m_indices = std::move(sampling);
